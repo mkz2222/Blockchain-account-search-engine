@@ -1,0 +1,377 @@
+{% extends 'acct/base_re.html' %}
+
+{% load static %}
+
+{% block content %}
+  
+
+<div class="page03">
+
+  <div class="p0header">
+    <div class="p0logo">
+      <a href="{% url 'search' %}"><img src='{% static 'images/eostree_10.png' %}'></a>
+    </div>
+
+    <div class="p0bar">
+      <form action="/search" method="get" >
+          <input type="text" name="q" placeholder="Account / Keyword" value="{{ keyword }}"><button class="p0btn1" type="submit"><img class ="btnimg" src='{% static 'images/search2.png' %}'></button>
+    </div>
+
+  </div>
+
+
+
+  <div class="p0result">
+
+    <div class="p0ds">
+
+    {% if presult == 0 %}
+
+      <div class="p0ds1">
+        <p> There is no result </p>
+      </div>
+
+
+    {% elif presult < 2 %}
+
+      <div class="p0ds1">
+        <p> total: {{presult}} result </p>
+      </div>
+
+    {% elif presult >= 2 %}
+      <div class="p0ds1">
+        <p> Total: {{presult}} results </p>
+      </div>
+
+    {% endif %}
+
+      <div class="p0ds2">
+          <button class="p0dsbtn" type="button" data-toggle="dropdown">Options 
+          <span class="caret"></span></button>
+
+            <div class="dropdown-menu p0ds2m1">
+
+              <table>
+                <tr>
+                  <th>- Search -</th>
+                </tr>
+                <tr class="p0ds2m1_tr2"></tr>
+
+                <tr>
+                  <td><input type="checkbox" value="1" name="sr" onClick="chooseOne3(this)" {% if s_range == "1" %} checked = "true" {% endif %}> Accounts</td>
+                  <td><input type="checkbox" value="2" name="sr" onClick="chooseOne3(this)" {% if s_range == "2" %} checked = "true" {% endif %}> Creators</td>
+                  <td><input type="checkbox" value="3" name="sr" onClick="chooseOne3(this)" {% if s_range == "3" %} checked = "true" {% endif %}> Both</td>
+                </tr>
+                <tr class="p0ds2m1_tr2"></tr>
+                <tr class="p0ds2m1_tr2"></tr>
+
+                <tr>
+                  <th>- Sort -</th>
+                </tr>
+                <tr class="p0ds2m1_tr2"></tr>
+
+                <tr>
+                  <td>By date:</td>
+                  <td><input type="checkbox" value="d1" name="s" onClick="chooseOne(this)" {% if sort1 == "d1" %} checked = "true" {% endif %}> Oldest</td>
+                  <td><input type="checkbox" value="d2" name="s" onClick="chooseOne(this)" {% if sort1 == "d2" %} checked = "true" {% endif %}> Newest</td>
+                </tr>
+
+                <tr>
+                  <td>By name:</td>
+                  <td><input type="checkbox" value="n1" name="s" onClick="chooseOne(this)" {% if sort1 == "n1" %} checked = "true" {% endif %}> 0-z</td>
+                  <td><input type="checkbox" value="n2" name="s" onClick="chooseOne(this)" {% if sort1 == "n2" %} checked = "true" {% endif %}> z-0</td>
+                </tr>
+                
+                <tr class="p0ds2m1_tr2"></tr>
+                <tr class="p0ds2m1_tr2"></tr>
+
+                <tr>
+                  <th>- Group -</th>
+                </tr>
+                <tr class="p0ds2m1_tr2"></tr>
+
+                <tr>
+                  <td>Mode:</td>
+                  <td><input type="checkbox" value="m1" name="m" onClick="chooseOne2(this)" {% if mode1 == "m1" %} checked = "true" {% endif %}> <img src='{% static 'images/group_and.png' %}'></td>
+                  <td><input type="checkbox" value="m2" name="m" onClick="chooseOne2(this)" {% if mode1 == "m2" %} checked = "true" {% endif %}> <img src='{% static 'images/group_xnd.png' %}'></td>
+                </tr>
+                <tr class="p0ds2m1_tr2"></tr>
+
+                <tr>
+                  <td>Groups:</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" value="g1" name="g1" {% if 'g1' in group_p  %} checked = "true" {% endif %}> Genesis</td>
+                  <td><input type="checkbox" value="v1" name="g2" {% if 'g2' in group_p %} checked = "true" {% endif %}> Voter</td>
+                  <td><input type="checkbox" value="b1" name="g3" {% if 'g3' in group_p %} checked = "true" {% endif %}> BP</td>
+                </tr>
+
+                <tr>
+                  <td><input type="checkbox" value="f1" name="g4" {% if 'g4' in group_p %} checked = "true" {% endif %}> Frozen</td>
+                  <td><input type="checkbox" value="p1" name="g5" {% if 'g5' in group_p %} checked = "true" {% endif %}> Premium</td>
+                  <td><input type="checkbox" value="c1" name="g6" {% if 'g6' in group_p %} checked = "true" {% endif %}> Contract</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" value="s1" name="g7" {% if 'g7' in group_p %} checked = "true" {% endif %}> For sale</td>
+                </tr>
+                <tr class="p0ds2m1_tr2"></tr>
+                <tr class="p0ds2m1_tr2"></tr>
+
+                <tr>
+                  <td><button type="submit">Update</button></td>
+                </tr>
+
+              </table>
+            </div>
+
+          </form>
+      </div>
+
+    </div>
+
+
+
+  {% autoescape off %}
+    {% if ad_r %}
+    <div class="kw_ad">
+
+      {% if ad_r.ad_type == '1' %}
+      <div class="ad_text">
+        <p><div class="ad_text_2">Ad</div> {{ ad_r.content }}</p>
+      </div>
+
+      {% elif ad_r.ad_type == '2' %}
+      <div class="ad_img">
+        <a href="{{ ad_r.url }}"><img src="{% static 'images/ad/'|add:ad_r.filename|add:'.png' %}"></a>
+        <div class="ad_img_2">Ad</div>
+      </div>
+
+      {% elif ad_r.ad_type == '3' %}
+      <div class="ad_img_d">
+        <a href="{{ ad_r.url }}"><img src="{% static 'images/ad/'|add:ad_r.filename|add:'.png' %}"></a>
+        <div class="ad_img_d2">Ad</div>
+      </div>
+
+      <div class="ad_img_m">
+        <a href="{{ ad_r.url }}"><img src="{% static 'images/ad/'|add:ad_r.filename_m|add:'.png' %}"></a>
+        <div class="ad_img_m2">Ad by {{ ad_r.provider }}</div>
+      </div>
+      {% endif %}
+    </div>
+    {% else %}
+
+    {% endif %}
+  {% endautoescape %}
+
+
+    {% if presult != 0 %}
+
+      {% for r in p2 %}
+
+        <div class="p0col">
+
+          <div class="p0col1">
+            <div class="p0col1_1">
+              <a href="/account/{{ r.name }}">{{ r.name }}</a>
+            </div>
+            
+            {% if r.group6 == 's' %}
+
+            <div class="p0col1_2s">
+              <img src="{% static 'images/sale_tag3_3.png' %}">
+            </div>
+
+            {% endif %}
+            <div class="p0col1_3">
+              <hr>
+            </div>
+          </div>
+
+          <div class="p0col2">
+            <table>
+              <tr>
+                <th><span title="Creator"><img class="p0colimg1" src='{% static 'images/creator.png' %}'></span></th>
+                <td><a href="/account/{{ r.creator }}"> {{ r.creator }} </a></td>
+              </tr>
+
+              <tr>
+                <th><span title="Created at"><img class="p0colimg2" src='{% static 'images/c_time.png' %}'></span></th>
+                <td><p> {{ r.time_created | date:"n/d/Y G:i T" }}</p></td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="p0col3">
+
+            {% if r.group1 == 'genesis' %}
+            <div class="p0col3_1">
+              <span title="Genesis"><p>G</p></span>
+            </div>
+            {% endif %}
+
+            {% if r.group1 == 'p' %}
+            <div class="p0col3_1">
+              <span title="Premium"><p>P</p></span>
+            </div>
+            {% endif %}
+
+            {% if r.group2 == 'v' %}
+            <div class="p0col3_1">
+              <span title="Voter"><p>V</p></span>
+            </div>
+            {% endif %}
+
+            {% if r.group3 == 'BP' %}
+            <div class="p0col3_1">
+              <span title="BP"><p>B</p></span>
+            </div>
+            {% endif %}
+
+            {% if r.group4 == 'f' %}
+            <div class="p0col3_1">
+              <span title="Frozen"><p>F</p></span>
+            </div>
+            {% endif %}
+
+            {% if r.group5 == 'c' %}
+            <div class="p0col3_1">
+              <span title="Contract"><p>C</p></span>
+            </div>
+            {% endif %}
+
+          </div>
+
+          {% if r.acct_info.comm_num %}
+          <div class="p0col4">
+
+            <div class="p0col4_1">
+              <p>{{ r.acct_info.comm_num }}</p>
+            </div>
+
+            <div class="p0col4_2">
+              <img src="{% static 'images/comment6.png' %}">
+              
+              
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+
+      {% empty %}
+
+      {% endfor %}
+
+    {% else %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <p>Can't find your account? Please <a href="/contact">let us know</a>.</p>
+    {% endif %}
+  
+  </div>
+
+
+
+  <div class="p0pg">
+  {% if p2.has_other_pages %}
+    <ul class="pagination">
+      {% if p2.has_previous %}
+        <li class="pg_ic"><a href="?page={{ p2.previous_page_number }}{% if keyword %}&q={{keyword}}{% endif %}{% if s_range %}&sr={{s_range}}{% endif %}{% if sort1 %}&s={{sort1}}{% endif %}{% if mode1 %}&m={{mode1}}{% endif %}{% if group_num != 0 %}{% for key, values in group_p.items %}&{{key}}={{values}}{% endfor %}{% endif %}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled"><a class="page-link" href="#" tabindex="-1"><span>&laquo;</span></a></li>
+      {% endif %}
+
+
+      {% for i in pages2 %}
+        {% if i == -1 %}
+        <!-- <li class="disabled"><a class="page-link" href="#" tabindex="-1">&hellip;</a></li> -->
+        <li class="disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>
+        {% elif p2.number == i %}
+        <li class="page-item active"><a href="#">{{ i }}</a></li>
+        {% else %}
+        <li><a href="?page={{ i }}{% if keyword %}&q={{keyword}}{% endif %}{% if s_range %}&sr={{s_range}}{% endif %}{% if sort1 %}&s={{sort1}}{% endif %}{% if mode1 %}&m={{mode1}}{% endif %}{% if group_num != 0 %}{% for key, values in group_p.items %}&{{key}}={{values}}{% endfor %}{% endif %}">{{ i }}</a>
+        {% endif %}
+      {% endfor %}
+
+
+      {% if p2.has_next %}
+        <li><a href="?page={{ p2.next_page_number }}{% if keyword %}&q={{keyword}}{% endif %}{% if s_range %}&sr={{s_range}}{% endif %}{% if sort1 %}&s={{sort1}}{% endif %}{% if mode1 %}&m={{mode1}}{% endif %}{% if group_num != 0 %}{% for key, values in group_p.items %}&{{key}}={{values}}{% endfor %}{% endif %}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><a class="page-link" href="#" tabindex="-1"><span>&raquo;</span></a></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+  </div>
+
+
+  <div class="p0pg_m">
+  {% if p2.has_other_pages %}
+    <ul class="pagination pagination-sm">
+
+      {% for i in pages2 %}
+        {% if i == -1 %}
+        <li class="disabled"><a class="page-link" href="#" tabindex="-1">..</a></li>
+        {% elif p2.number == i %}
+        <li class="page-item active"><a href="#">{{ i }}</a></li>
+        {% else %}
+        <li><a href="?page={{ i }}{% if keyword %}&q={{keyword}}{% endif %}{% if s_range %}&sr={{s_range}}{% endif %}{% if sort1 %}&s={{sort1}}{% endif %}{% if mode1 %}&m={{mode1}}{% endif %}{% if group_num != 0 %}{% for key, values in group_p.items %}&{{key}}={{values}}{% endfor %}{% endif %}">{{ i }}</a>
+        {% endif %}
+      {% endfor %}
+      
+
+    </ul>
+  {% endif %}
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <br>
+  <br>
+  <br>
+
+</div>
+
+<script>
+function chooseOne(chk){
+    var obj = document.getElementsByName("s");
+    for (i=0; i<obj.length; i++){
+        if (obj[i]!=chk) obj[i].checked = false;
+        else obj[i].checked = true;
+    }
+} 
+
+function chooseOne2(chk){
+    var obj = document.getElementsByName("m");
+    for (i=0; i<obj.length; i++){
+        if (obj[i]!=chk) obj[i].checked = false;
+        else obj[i].checked = true;
+    }
+} 
+
+
+function chooseOne3(chk){
+    var obj = document.getElementsByName("sr");
+    for (i=0; i<obj.length; i++){
+        if (obj[i]!=chk) obj[i].checked = false;
+        else obj[i].checked = true;
+    }
+} 
+
+</script>
+
+
+
+
+
+{% endblock %}

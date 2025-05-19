@@ -1,0 +1,150 @@
+{% extends 'search/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="p0header">
+
+  <div class="p0logo">
+    <a href="{% url 'search' %}"><img src='{% static 'images/eostree_10.png' %}'></a>
+  </div>
+
+  <div class="p0bar">
+
+    <form action="/search" method="get" >
+      
+        <input type="text" name="q" placeholder="Account / Keyword" value="{{ keyword }}"><button class="p0btn1" type="submit"><img class ="btnimg" src='{% static 'images/search2.png' %}'></button>
+    </form>
+  </div>
+
+</div>
+
+
+<div class="p0result">
+
+<br>
+<br>
+    <p style="font-weight: bold;text-align: center;">Terms of Use</p>
+<br>
+
+<p>By using the EOSTree.io website (the "Site") or any EOSTree applications or application plug-ins ("Applications"), you agree to follow and be bound by these terms of use (the "Terms of Use") and agree to comply with all applicable laws and regulations. In these Terms of Use, the words "you" and "your" refer to each user, Site visitor, or Application user, "we", "us" and "our" refer to EOSTree.io, and "Services" refers to all services provided by us.</p>
+<br>
+<p>It is your responsibility to review these Terms of Use periodically. <span style="font-weight: bold;">If at any time you find these Terms of Use unacceptable or if you do not agree to these Terms of Use, please do not use this Site or any Applications.</span> We may revise these Terms of Use at any time without notice to you. If you have any questions about these Terms of Use, please contact us.</p>
+
+<p>YOU AGREE THAT BY USING THE SITE, ANY APPLICATIONS, AND THE SERVICES YOU ARE OF LEGAL AGE AND YOU ARE LEGALLY ABLE TO ENTER INTO A CONTRACT.</p>
+
+<p><span style="font-weight:bold;">These Terms require the use of arbitration on an individual basis to resolve disputes, rather than jury trials or class actions, and also limit the remedies available to you in the event of a dispute.</span> </p>
+
+<p><span style="font-weight:bold;">1. Privacy Policy.</span> EOSTree respects your privacy and permits you to control the treatment of your personal information. A complete statement of EOSTree's current Privacy Policy can be found by clicking here. EOSTree's Privacy Policy is expressly incorporated into this Agreement by reference.</p>
+
+<p>When you open an account to use or access certain portions of the Site, Applications, or the Services, you must provide complete and accurate information as requested on the registration form. You will also be asked to provide a username and password. You are entirely responsible for maintaining the confidentiality of your password. You may not use a third party's account, username or password at any time. You agree to notify EOSTree immediately of any unauthorized use of your account, user name or password. EOSTree shall not be liable for any losses you incur as a result of someone else's use of your account or password, either with or without your knowledge. You may be held liable for any losses incurred by EOSTree, our affiliates, officers, directors, employees, consultants, agents and representatives due to someone else's use of your account or password.
+In connection with the use of certain EOSTree products or services, you may be asked to provide personal information in a questionnaire, application, form or similar document or service. This information will be protected pursuant to our Privacy Policy. In addition, you grant EOSTree a worldwide, royalty-free, nonexclusive, and fully sublicensable license to use, distribute, reproduce, modify, publish and translate this personal information solely for the purpose of enabling your use of the applicable service. You may revoke this license and terminate rights held by EOSTree at any time by removing your personal information from the applicable service.
+</p>
+
+<p><span style="font-weight:bold;">2. Ownership. </span> This Site and Applications are owned and operated by EOSTree.io. All right, title and interest in and to the materials provided on this Site and Applications, including but not limited to information, documents, logos, graphics, sounds and images (the "Materials") are owned either by EOSTree or by our respective third party authors, developers or vendors ("Third Party Providers"). Except as otherwise expressly provided by EOSTree, none of the Materials may be copied, reproduced, republished, downloaded, uploaded, posted, displayed, transmitted or distributed in any way and nothing on this Site or on any Applications shall be construed to confer any license under any of EOSTree's intellectual property rights, whether by estoppel, implication or otherwise. EOSTree does not sell, license, lease or otherwise provide any of the Materials other than those specifically identified as being provided by EOSTree. Any rights not expressly granted herein are reserved by EOSTree.</p>
+ 
+<p><span style="font-weight:bold;">3. Comments, Communications, and Other Content. </span> At various locations on the Site or through Applications, EOSTree may permit users to post ratings, reviews, comments, questions, answers, and other content (the "User Content"). Contributions to, access to and use of the User Content is subject to this paragraph and the other terms and conditions of these Terms of Use.</p>
+ 
+ 
+<p style="font-weight:bold;">Rights and Responsibilities of EOSTree.</p> 
+
+<p>EOSTree is not the publisher or author of the User Content. EOSTree takes no responsibility and assumes no liability for any content posted by you or any third party.</p>
+
+<p>Although we cannot make an absolute guarantee of system security, EOSTree takes reasonable steps to maintain security. If you have reason to believe system security has been breached, contact us by email for help.
+</p>
+
+<p>If EOSTree's technical staff finds that files or processes belonging to a member pose a threat to the proper technical operation of the system or to the security of other members, EOSTree reserves the right to delete those files or to stop those processes. If the EOSTree technical staff suspects a username is being used by someone who is not authorized by the proper user, EOSTree may temporarily disable that user's access in order to preserve system security. In all such cases, EOSTree will contact the member as soon as feasible.
+</p>
+
+<p>EOSTree has the right (but not the obligation), in our sole and absolute discretion, to edit, redact, remove, re-categorize to a more appropriate location or otherwise change any User Content.
+Rights and Responsibilities of EOSTree Users or Other Posters of User Content.</p>
+
+<p>You are legally and ethically responsible for any User Content - writings, files, pictures or any other work - that you post or transmit using any EOSTree service that allows interaction or dissemination of information. In posting User Content, you agree that you will not submit any content:</p>
+<ul>
+	
+	<li>that is known by you to be false, inaccurate or misleading;</li>
+	<li>that infringes anyone’s copyright, patent, trademark, trade secret or other proprietary rights or rights of publicity or privacy. Please see Compliance with Intellectual Property Laws below;</li>
+	<li>that violates any law, statute, ordinance, or regulation (including, but not limited to, those governing export control, consumer protection, unfair competition, antidiscrimination, or false advertising). </li>
+	<li>that is, or may reasonably be considered to be, defamatory, libelous, hateful, racially or religiously biased or offensive, unlawfully threatening or unlawfully harassing, or advocates or encourages illegal conduct harmful to any individual, partnership or corporation. Please see Inappropriate Content below;</li>
+	<li>that includes advertisements, spam, or content for which you were compensated or granted any consideration by any third party;</li>
+	<li>that includes information that references other websites, addresses, email addresses, phone numbers, or other contact information;</li>
+	<li>that contains any computer virus, worms, or other potentially damaging computer programs or files;</li>
+	<li>that otherwise violates these Terms of Use.</li>
+
+</ul>
+<p>Under United States federal law, you retain copyright on all works you create and post as User Content, unless you choose specifically to renounce it. In posting a work as User Content, you authorize other members who have access to that service to make personal and customary use of the work, including creating links or reposting, but not otherwise to reproduce or disseminate it unless you give permission for such dissemination.</p>
+
+<p>You grant EOSTree a perpetual, irrevocable, royalty-free, transferable right and license to use, copy, modify, delete in its entirety, adapt, publish, translate, create derivative works from, sell, distribute, and/or incorporate such content into any form, medium, or technology throughout the world without compensation to you. You have the right to remove any of your works from User Content at any time.</p>
+
+
+<p>You are not required to provide your real name when signing up as a user of EOSTree. EOSTree permits anonymous or pseudonymous accounts. Any user may request that such member's email address be hidden to provide for additional privacy.</p>
+
+<p>By submitting your rating, comments, or replies, you agree that EOSTree may use your email address to contact you about the status of your review and other administrative purposes.</p>
+
+
+<p><span style="font-weight:bold;">4. NO WARRANTY. </span> THE SITE, APPLICATIONS, AND ALL MATERIALS, DOCUMENTS OR FORMS PROVIDED ON OR THROUGH YOUR USE OF THE SITE OR APPLICATIONS ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. TO THE FULLEST EXTENT PERMITTED BY LAW, EOSTREE EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT.</p>
+ 
+<p>EOSTREE MAKES NO WARRANTY THAT: (A) THE SITE, APPLICATIONS, OR THE MATERIALS WILL MEET YOUR REQUIREMENTS; (B) THE SITE, APPLICATIONS, OR THE MATERIALS WILL BE AVAILABLE ON AN UNINTERRUPTED, TIMELY, SECURE OR ERROR-FREE BASIS; (C) THE RESULTS THAT MAY BE OBTAINED FROM THE USE OF THE SITE, APPLICATIONS, OR ANY MATERIALS OFFERED THROUGH THE SITE OR APPLICATIONS, WILL BE ACCURATE OR RELIABLE; OR (D) THE QUALITY OF ANY PRODUCTS, SERVICES, INFORMATION OR OTHER MATERIAL PURCHASED OR OBTAINED BY YOU THROUGH THE SITE, APPLICATIONS, OR IN RELIANCE ON THE MATERIALS WILL MEET YOUR EXPECTATIONS.</p>
+
+<p>OBTAINING ANY MATERIALS THROUGH THE USE OF THE SITE OR APPLICATIONS IS DONE AT YOUR OWN DISCRETION AND AT YOUR OWN RISK. EOSTREE SHALL HAVE NO RESPONSIBILITY FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR LOSS OF DATA THAT RESULTS FROM THE DOWNLOAD OF ANY CONTENT, MATERIALS, INFORMATION OR SOFTWARE.</p>
+
+
+<p><span style="font-weight: bold;font-size: 1.1em;">5. LIMITATION OF LIABILITY AND INDEMNIFICATION. </span>EXCEPT AS PROHIBITED BY LAW, YOU WILL HOLD EOSTREE AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS HARMLESS FOR ANY INDIRECT, PUNITIVE, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGE, HOWEVER IT ARISES, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE, OR OTHER TORTIOUS ACTION, OR ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT, INCLUDING WITHOUT LIMITATION ANY CLAIM FOR PERSONAL INJURY OR PROPERTY DAMAGE, ARISING FROM THIS AGREEMENT AND ANY VIOLATION BY YOU OF ANY FEDERAL, STATE, OR LOCAL LAWS, STATUTES, RULES, OR REGULATIONS, EVEN IF EOSTREE HAS BEEN PREVIOUSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. EXCEPT AS PROHIBITED BY LAW, IF THERE IS LIABILITY FOUND ON THE PART OF EOSTREE, IT WILL BE LIMITED TO THE AMOUNT PAID FOR THE PRODUCTS AND/OR SERVICES, AND UNDER NO CIRCUMSTANCES WILL THERE BE CONSEQUENTIAL OR PUNITIVE DAMAGES. SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF PUNITIVE, INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE PRIOR LIMITATION OR EXCLUSION MAY NOT APPLY TO YOU. THIS PARAGRAPH DOES NOT APPLY TO NORTH CAROLINA CONSUMERS.</p>
+
+
+
+
+<p><span style="font-weight:bold;">6. Acceptable Use Policy</span> You may not use any "deep-link", "page-scrape", "robot", "spider" or other automatic device, program, algorithm or methodology, or any similar or equivalent manual process, to access, acquire, copy or monitor any portion of the Site or any Content, or in any way reproduce or circumvent the navigational structure or presentation of the Site or any Content, to obtain or attempt to obtain any materials, documents or information through any means not purposely made available through the Site. EOSTree reserves the right to bar any such activity.</p>
+
+<p>You may not attempt to gain unauthorized access to any portion or feature of the Site, or any other systems or networks connected to the Site, or to any of the services offered on or through the Site, by hacking, password "mining" or any other illegitimate means.</p>
+
+<p>You may not probe, scan or test the vulnerability of the Site or any network connected to the Site, nor breach the security or authentication measures on the Site or any network connected to the Site. You may not reverse look-up, trace or seek to trace any information on any other user of or visitor to the Site, or exploit the Site or any service or information made available or offered by or through the Site, in any way where the purpose is to reveal any information, including but not limited to personal identification or information, other than your own information, as provided for by the Site.</p>
+
+<p>You agree that you will not take any action that imposes an unreasonable or disproportionately large load on the infrastructure of the Site, or any systems or networks connected to the Site.</p>
+
+<p>You agree not to use any device, software or routine to interfere or attempt to interfere with the proper working of the Site or any transaction being conducted on the Site, or with any other person’s use of the Site.</p>
+
+<p>You may not forge headers or otherwise manipulate identifiers in order to disguise the origin of any message or transmittal you send to or through the Site or any service offered on or through the Site. You may not pretend that you are, or that you represent, someone else, or impersonate any other individual or entity.</p>
+
+<p>You may not use the Site or any Content for any purpose that is unlawful or prohibited by these Terms of Use, or to solicit the performance of any illegal activity or other activity which infringes the rights of EOSTree or others.</p>
+
+
+<p><span style="font-weight:bold;">7. Inappropriate Content.</span> When accessing the Site, any Applications, or using EOSTree's Services, you agree not to upload, download, display, perform, post, transmit or otherwise distribute any content that: (i) is libelous, defamatory, obscene, pornographic, abusive or threatening; (b) advocates or encourages conduct that could constitute a criminal offense, give rise to civil liability or otherwise violate any applicable local, state, national or foreign law or regulation; or (c) advertises or otherwise solicits funds or is a solicitation for goods or services. EOSTree reserves the right to terminate or delete such material from its servers. </p>
+
+
+<p><span style="font-weight:bold;">8. Compliance with Intellectual Property Laws.</span> When accessing EOSTree or using the EOSTree’s service, you agree to obey the law and you agree to respect the intellectual property rights of others. Your use of the Service and the Site is at all times governed by and subject to laws regarding copyright, trademark and other intellectual property ownership. You agree not to upload, download, display, perform, transmit or otherwise distribute any information or content in violation of any third party's copyrights, trademarks or other intellectual property or proprietary rights. You agree to abide by laws regarding copyright ownership and use of intellectual property, and you shall be solely responsible for any violations of any relevant laws and for any infringements of third party rights caused by any content you provide or transmit or that is provided or transmitted using your EOSTree user account.</p>
+
+<p>EOSTree retains all right, title and interest in and to this Website and its products and services, including all copyrights, trade secrets, trademarks, other intellectual property rights, trade names, logos, slogans, custom graphics, button icons, scripts, text, images, software, code, files, content, information and other material available on our Website excluding other trademarks, product names and company names or logos cited on the site which are the property of their respective owners.</p>
+
+
+
+<p><span style="font-weight:bold;">9. Links to Third Party Sites/Dapps/Apps. </span> This Site and Applications may contain links to websites, dapps or apps controlled by parties other than EOSTree (each a "Third Party Site"). EOSTree works with a number of partners and affiliates whose sites are linked with EOSTree. EOSTree may also provide links to other citations or resources with whom it is not affiliated. EOSTree is not responsible for and does not endorse or accept any responsibility for the availability, contents, products, services or use of any Third Party Site, any website accessed from a Third Party Site or any changes or updates to such sites. EOSTree makes no guarantees about the content or quality of the products or services provided by such sites. EOSTree is not responsible for webcasting or any other form of transmission received from any Third Party Site. EOSTree is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by EOSTree of the Third Party Site, nor does it imply that EOSTree sponsors, is affiliated or associated with, guarantees, or is legally authorized to use any trade name, registered trademark, logo, legal or official seal, or copyrighted symbol that may be reflected in the links. You acknowledge that you bear all risks associated with access to and use of content provided on a Third Party Site and agree that EOSTree is not responsible for any loss or damage of any sort you may incur from dealing with a third party. You should contact the site administrator for the applicable Third Party Site if you have any concerns regarding such links or the content located on any such Third Party Site.</p>
+
+
+<p><span style="font-weight:bold;">10. Information accuracy. </span> This Site and Applications contain information retrieved from other third party locations or databases such as blockchain, thus we cannot and do not guarantee the accuracy or completeness or availability of any information. </p>
+
+<p><span style="font-weight:bold;">11. Arbitration Agreement. </span> YOU AGREE THAT BY ENTERING THIS AGREEMENT, YOU AND EOSTREE ARE EACH WAIVING THE RIGHT TO TRIAL BY JURY OR TO PARTICIPATE IN A CLASS ACTION. YOU AND EOSTREE AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING. ANY ARBITRATION WILL TAKE PLACE ON AN INDIVIDUAL BASIS; CLASS ARBITRATIONS AND CLASS ACTIONS ARE NOT PERMITTED.</p>
+
+
+<p>A party who intends to seek arbitration must first send a formal Notice of Dispute ("Notice") to the other party.</p>
+
+<p><span style="font-weight:bold;">12. Governing Law. </span> These terms of use are governed by the laws of the State of California.</p>
+
+
+<p><span style="font-weight:bold;">13. Additional Terms. </span> Some EOSTree Services may be subject to additional posted guidelines, rules or terms of service ("Additional Terms") and your use of such Services will be conditioned on your agreement to the Additional Terms. If there is any conflict between these Terms of Use and the Additional Terms, the Additional Terms will control for that Service, unless the Additional Terms expressly state that these Terms of Use will control.</p>
+
+
+<br>
+<br>
+
+<p>Last updated on 12/09/18</p>
+
+
+
+</div>
+
+
+{% endblock %}
+

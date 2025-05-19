@@ -1,0 +1,123 @@
+{% extends 'search/base.html' %}
+
+{% load static %}
+
+{% block content %}
+  
+{% if request.user.is_authenticated %}
+
+
+<div class="p0header">
+
+    <div class="p0logo">
+      <a href="{% url 'search' %}"><img src='{% static 'images/eostree_10.png' %}'></a>
+    </div>
+
+    <div class="p0bar">
+
+      <form action="/search" method="get" >
+        
+          <input type="text" name="q" placeholder="Account / Keyword" value="{{ keyword }}"><button class="p0btn1" type="submit"><img class ="btnimg" src='{% static 'images/search2.png' %}'></button>
+
+      </form>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="p0result">
+
+
+
+
+  <div class="user_content">
+
+    <div class="site_map">
+      <div class="sm01">
+        <p> User settings: {{ request.user.username }}</p>
+      </div>
+    </div>
+
+
+
+    <div class="user_acct">
+      
+      <br>
+      <h3>Account settings</h3>
+      <br>
+
+      <div class="user_setting">
+
+        <p>Update Email Address</p>
+
+        <div class="user_setting01">
+          <form action="" method="post" class="ajax_email">
+            {% csrf_token %}
+            <div class="user_form">
+              <ul id="email_chg"></ul>
+              <input type="email" name="new_email" value="{{ request.user.email }}" required>
+            
+              <button type="submit" id="email_button">Update</button>
+            </div>
+          </form>
+        </div>
+
+        <br>
+        <br>
+
+
+        <p>Change password</p>
+
+        <div class="user_setting02">
+          <form action="" method="post" class="ajax_password">
+            {% csrf_token %}
+            <div class="user_form">
+              <ul id="pass_chg"></ul>
+              <p>Current password</p>
+              <input type="password" name="current_password" placeholder="" required>
+            </div>
+
+            <div class="user_form">
+              <p>New password</p>
+              <input type="password" name="password1" placeholder="" required>
+            </div>
+
+            <div class="user_form">
+              <p>Confirm new password</p>
+              <input type="password" name="password2" placeholder="" required>
+              <button type="submit" id="pass_button">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+    </div>
+
+  </div>
+</div>
+
+
+{% endif %}
+
+
+
+
+
+
+<script>
+
+var a=['<div\x20class=\x22acct_setting01u\x22><p>A\x20validation\x20email\x20has\x20been\x20sent,\x20please\x20check\x20your\x20email.</p></div>','login','location','replace','/login/','#email_chg','error','Update','form.ajax_password','#pass_button','/s2','name','.user_setting02','Your\x20password\x20has\x20been\x20updated.','addClass','length','<li>','</li>','#pass_chg','ready','form.ajax_email','submit','#email_button','html','Updating...','attr','method','find','[name]','each','val','ajax','json','chg','.user_setting01'];(function(c,d){var e=function(f){while(--f){c['push'](c['shift']());}};e(++d);}(a,0x14e));var b=function(c,d){c=c-0x0;var e=a[c];return e;};$(document)[b('0x0')](function(){$(b('0x1'))['on'](b('0x2'),function(c){$(b('0x3'))[b('0x4')](b('0x5'));var d=$(this),e='/s1',f=d[b('0x6')](b('0x7')),c={};d[b('0x8')](b('0x9'))[b('0xa')](function(h,i){var d=$(this),k=d[b('0x6')]('name'),i=d[b('0xb')]();c[k]=i;});$[b('0xc')]({'url':e,'type':f,'data':c,'dataType':b('0xd'),'success':function(m){if(m[b('0xe')]=='1'){$(b('0xf'))[b('0x4')](b('0x10'));}else if(m[b('0x11')]=='0'){window[b('0x12')][b('0x13')](b('0x14'));}else{$(b('0x15'))['html'](m[b('0x16')]);$(b('0x3'))[b('0x4')](b('0x17'));}}});return![];});});$(document)[b('0x0')](function(){$(b('0x18'))['on'](b('0x2'),function(n){$(b('0x19'))[b('0x4')](b('0x5'));var o=$(this),p=b('0x1a'),q=o[b('0x6')](b('0x7')),n={};o[b('0x8')](b('0x9'))[b('0xa')](function(s,t){var o=$(this),v=o['attr'](b('0x1b')),t=o[b('0xb')]();n[v]=t;});$['ajax']({'url':p,'type':q,'data':n,'dataType':b('0xd'),'success':function(x){if(x[b('0xe')]=='1'){$(b('0x1c'))[b('0x4')](b('0x1d'))[b('0x1e')]('p11suc');$(b('0x19'))[b('0x4')](b('0x17'));}else if(x[b('0x11')]=='0'){window[b('0x12')][b('0x13')](b('0x14'));}else{var y='';for(var z=0x0;z<x[b('0x16')][b('0x1f')];z++){y+=b('0x20')+x[b('0x16')][z]+b('0x21');}$(b('0x22'))[b('0x4')](y);$(b('0x19'))[b('0x4')](b('0x17'));}}});return![];});});
+
+</script>
+
+
+
+
+{% endblock %}

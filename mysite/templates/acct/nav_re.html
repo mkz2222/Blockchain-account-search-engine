@@ -1,0 +1,131 @@
+
+{% load static %}
+
+{% if request.user.is_authenticated %}
+
+  <div class="nav3">
+
+      <button type="button" data-toggle="dropdown">My account</button> 
+
+        <div class="dropdown-menu nav3_dropdown">
+
+          <a href="/user/myaccount">
+            <div class="nav3_link">My profile</div>
+          </a>
+
+          <a href="/user/mycontent">
+            <div class="nav3_link"><p>My content</p></div>
+          </a>
+
+          <a href="/user/setting">
+            <div class="nav3_link"><p>Settings</p></div>
+          </a>
+
+        </div>
+
+
+    <a href="/logout">
+    	<button type="button">Log out</button> 
+    </a>
+
+  </div>
+
+
+
+  <div class="options-menu-horizontal2">
+
+      <div class="mo-menubar_blank"></div>
+
+      <a href="/user/myaccount">
+        <div class="mo-menubar">
+          <p>My profile</p>
+        </div>
+      </a>
+
+      <a href="/user/mycontent">
+        <div class="mo-menubar">
+          <p>My content</p>
+        </div>
+      </a>
+
+      <a href="/user/setting">
+        <div class="mo-menubar">
+          <p>Settings</p>
+        </div>
+      </a>
+
+      <a href="/logout">
+        <div class="mo-menubar">
+          <p>Log out</p>
+        </div>
+      </a>
+
+
+      <button type="button" class="close-menu">X</button>
+
+  </div>
+
+
+  <div class="nav2_user">
+    <div class="menu-toggle_user" data-show-dialog="options-menu-horizontal2">
+      <div class="toggle_bar1"></div>
+      <div class="toggle_bar"></div>
+      <div class="toggle_bar"></div>
+    </div>
+  </div>
+
+{% else  %}
+
+
+  <div class="nav1">
+
+    <a href="/signin">
+      <button type="button">Log in</button>
+    </a>
+
+    <a href="/signup">
+      <button type="button">Sign up</button>
+    </a>
+  </div>
+
+
+
+  <div class="options-menu-horizontal">
+
+      <div class="mo-menubar_blank"></div>
+
+      <a href="/signin">
+        <div class="mo-menubar">
+          <p>Log in</p>
+        </div>
+      </a>
+
+      <a href="/signup">
+        <div class="mo-menubar">
+          <p>Sign up</p>
+        </div>
+      </a>
+
+      <button type="button" class="close-menu">X</button>
+
+  </div>
+
+
+  <div class="nav2">
+    <div class="menu-toggle" data-show-dialog="options-menu-horizontal">
+      <div class="toggle_bar1"></div>
+      <div class="toggle_bar"></div>
+      <div class="toggle_bar"></div>
+    </div>
+  </div>
+
+{%  endif %}
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{% static 'js/nav.js' %}"></script>
+
+
+
+
+

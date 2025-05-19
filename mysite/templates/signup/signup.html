@@ -1,0 +1,79 @@
+{% extends 'search/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<div class="p0header">
+
+  <div class="p0logo">
+    <a href="{% url 'search' %}"><img src='{% static 'images/eostree_10.png' %}'></a>
+  </div>
+
+  <div class="p0bar">
+
+    <form action="/search" method="get" >
+      
+        <input type="text" name="q" placeholder="Account / Keyword" value="{{ keyword }}"><button class="p0btn1" type="submit"><img class ="btnimg" src='{% static 'images/search2.png' %}'></button>
+    </form>
+  </div>
+
+</div>
+
+
+<div class="page02">
+
+  <div class="p02ar">
+
+    <div class="p02ar_1">
+      <h2>Sign up</h2>
+      <ul id="signup_er"></ul>
+      <br>
+      <form action="" method="post" class="ajax_signup">
+        {% for field in form %}
+          {% for error in field.errors %}
+           <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        {% endfor %}
+
+        {% csrf_token %}
+
+        <p>Username:</p>
+        <ul id="username_er"></ul>
+        {{ form.username|attr:"id:id_uname"|attr:"placeholder:Must be at least 4 characters" }}
+
+        <p>Email:</p>
+        <ul id="email_er"></ul>
+        {{ form.email|attr:"id:id_email" }}
+
+        <p>Password:</p>
+        {{ form.password1 |attr:"id:id_pass1"| attr:"placeholder:At least 8 characters and can't be all numeric "}}
+
+        <p>Confirm Password:</p>
+        {{ form.password2 |attr:"id:id_pass2" }}
+
+
+        <p><input type="checkbox" name="agreetoterms" value="yesiagree" required="">I agree to the <a href="/user_agreement">Terms of Use</a> and <a href="/user_privacy">Privacy Policy</a></p>
+
+
+        <button type="submit" id="signup_button">Register</button>
+      </form>
+      <br>
+    
+      <p><a href="/login/">Already got an account?</a></p>
+
+    </div>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+var a=['#email_er','error','ready','form.ajax_signup','submit','Updating...','/s6','attr','method','find','[name]','name','<span>A\x20validation\x20email\x20has\x20been\x20sent,\x20please\x20check\x20your\x20email\x20and\x20confirm.</span>','css','text-align','center','<li>','</li>','#signup_er','#signup_button','Register','#id_pass1','#id_pass2','#id_uname','change','val','ajax','pass','#username_er','html','#id_email','/s4','json'];(function(c,d){var e=function(f){while(--f){c['push'](c['shift']());}};e(++d);}(a,0xfe));var b=function(c,d){c=c-0x0;var e=a[c];return e;};$(b('0x0'))[b('0x1')](function(){var c=$(this)[b('0x2')]();$[b('0x3')]({'url':'/s3','data':{'uname':c},'dataType':'json','success':function(d){if(d[b('0x4')]==0x1){$(b('0x5'))[b('0x6')]('');}else{$(b('0x5'))[b('0x6')](d['error']);}}});});$(b('0x7'))[b('0x1')](function(){var e=$(this)[b('0x2')]();$[b('0x3')]({'url':b('0x8'),'data':{'email':e},'dataType':b('0x9'),'success':function(f){if(f['pass']==0x1){$(b('0xa'))[b('0x6')]('');}else{$('#email_er')[b('0x6')](f[b('0xb')]);}}});});$(document)[b('0xc')](function(){$(b('0xd'))['on'](b('0xe'),function(g){$('#signup_button')['html'](b('0xf'));var h=$(this),i=b('0x10'),j=h[b('0x11')](b('0x12')),g={};h[b('0x13')](b('0x14'))['each'](function(l,m){var h=$(this),o=h[b('0x11')](b('0x15')),m=h['val']();g[o]=m;});$[b('0x3')]({'url':i,'type':j,'data':g,'dataType':b('0x9'),'success':function(g){if(g[b('0x4')]=='1'){$('.p02ar_1')[b('0x6')](b('0x16'))[b('0x17')](b('0x18'),b('0x19'));}else{var r='';for(var s=0x0;s<g[b('0xb')]['length'];s++){r+=b('0x1a')+g[b('0xb')][s]+b('0x1b');}$(b('0x1c'))['html'](r);$(b('0x1d'))[b('0x6')](b('0x1e'));$(b('0x1f'))[b('0x2')]('');$(b('0x20'))[b('0x2')]('');}}});return![];});});
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,898 @@
+{% extends 'acct/base_re.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block content %}
+
+
+
+  <div class="p0header">
+
+    <div class="p0logo">
+      <a href="{% url 'search' %}"><img src='{% static 'images/eostree_10.png' %}'></a>
+    </div>
+
+    <div class="p0bar">
+      <form action="/search" method="get" >
+          {{ form }}<button class="p0btn1" type="submit"><img class ="btnimg" src='{% static 'images/search2.png' %}'></button>
+      </form>
+    </div>
+
+  </div>
+
+
+
+  <div class="acct_result">
+
+    <div class="p0ds">
+      <div class="p0ds1">
+        <p> Account info </p>
+      </div>
+    </div>
+
+
+    
+    <div class="acct_title">
+      <p>Account: {{ acct_result.account_name }}</p>
+    </div>
+
+
+    <div class="acct_info">
+
+      <table class="acct_table">
+        <tr>
+          <th>Creator:</th>
+
+          {% if acct_result.account_name != 'eosio' %}
+          <td>
+            <div class="acct_table_cr">
+            <a href="/account/{{ acct_result2.creator }}">{{acct_result2.creator}}</a> 
+            </div>
+
+            <a href="/search/?q={{ acct_result2.creator }}">
+              <div class="acct_table_btn" style="background-image: url('{% static 'images/search2.png' %}');">
+              </div>
+            </a>
+          </td>
+
+          {% else %}
+
+          <td>
+            <div class="acct_table_cr">
+            <a href="https://block.one/">{{acct_result2.creator}}</a> 
+            </div>
+
+          </td>
+          {% endif %}
+
+        </tr>
+        <tr>
+          <th>Created at:</th>
+          <td>{{ created_dt | date:"n/d/Y G:i T"}}</td>
+        </tr>
+        <tr>
+          <th>RAM:</th>
+          <td>{{ ram_usage }} KB / {{ total_ram }} KB</td>
+        </tr>
+        <tr>
+          <th>CPU:</th>
+          <td>{{ cpu_usage }} µs / {{ total_cpu }} µs</td>
+        </tr>
+        <tr>
+          <th>Net:</th>
+          <td>{{ net_usage }} KB / {{ total_net }} KB</td>
+        </tr>
+        <tr>
+          <th>Staked (CPU):</th>
+          <td>{{ staked_cpu | floatformat:4 }}</td>
+        </tr>
+        <tr>
+          <th>Staked (Net):</th>
+          <td>{{ staked_net | floatformat:4}}</td>
+        </tr>
+        <tr>
+          <th>Staked (Other):</th>
+          <td>{{ staked_etc |floatformat:4 }}</td>
+        </tr>
+        <tr>
+          <th>Unstaked:</th>
+          <td>{{ balance | floatformat:4 }}</td>
+        </tr>
+        <tr>
+          <th>Total balance:</th>
+          <td>{{ total_balance }} EOS</td>
+        </tr>
+      </table>
+
+{% if acct_result2.group6 == 's' %}
+      <div class="acct4sale">
+        <h1>This account is for sale</h1>
+        <br>
+        <div class="acct4sale2">
+
+          <table class="a4s_tb">
+            {% if acct_result2.acct_info.acct_info2 == "s1" %}
+            <tr>
+              <td>
+                {{ acct_result2.acct_info.acct_info1 }}
+              </td>
+              <td>
+                <img class ="sale_logo1" src='{% static 'images/nd_1.png' %}'> Namedex
+              </td>
+              <td>
+                <a href="http://namedex.io/#/market/fixed/{{ acct_result.account_name }}" onclick="return confirm('Please note that you will be directed to a third party Dapp. By clicking the OK button, you agree that EOS Tree is not responsible for any loss or damage of any sort you may incur from dealing with a third party Dapp.')"><button type="submit"><img class ="sellbtnimg" src='{% static 'images/cart1.png' %}'></button></a>
+              </td>
+            </tr>
+            {% endif %}
+
+            {% if acct_result2.acct_info.acct_info3 == "s2" %}
+            <tr>
+              <td>
+                {{ acct_result2.acct_info.acct_info1 }}
+              </td>
+              <td>
+                <img class ="sale_logo2" src='{% static 'images/ens_1.jpg' %}'> <span>EOSNameSwaps</span>
+              </td>
+              <td>
+                <a href="https://www.eosnameswaps.com/?buy={{ acct_result.account_name }}&ref=eostree" onclick="return confirm('Please note that you will be directed to a third party Dapp. By clicking the OK button, you agree that EOS Tree is not responsible for any loss or damage of any sort you may incur from dealing with a third party Dapp.')"><button type="submit"><img class ="sellbtnimg" src='{% static 'images/cart1.png' %}'></button></a>
+              </td>
+            </tr>
+            {% endif %}
+          </table>
+
+        </div>
+      </div>
+{% else %}
+
+{% endif %}
+    </div>
+
+
+    <div class="acct_info2">
+
+      <div class="acct_group">
+        <p>Group:</p>
+
+        {% if group_num != 0 %}
+          {% for key, values in group.items %}
+
+        <div class="group_col">
+          <p>{{ values }}</p>
+        </div>
+
+          {% endfor %}
+        {% endif %}
+
+      </div>
+
+      <hr>
+
+      <div class="acct_link">
+        <p>Check this account on:</p>
+
+        <a href="https://eosflare.io/account/{{ acct_result.account_name }} ">
+          <div class="link_col">
+            <p>eosflare</p>
+          </div>
+        </a>
+
+        <a href="https://eostracker.io/accounts/{{ acct_result.account_name }}">
+          <div class="link_col">
+            <p>eostracker</p>
+          </div>
+        </a>
+
+        <a href="https://eospulse.com/account/{{ acct_result.account_name }}">
+          <div class="link_col">
+            <p>EOS Pulse</p>
+          </div>
+        </a>
+
+
+        <a href="https://eospark.com/MainNet/account/{{ acct_result.account_name }}">
+          <div class="link_col">
+            <p>EOSPark</p>
+          </div>
+        </a>
+
+        <a href="https://www.bloks.io/account/{{ acct_result.account_name }}">
+          <div class="link_col">
+            <p>Bloks.io</p>
+          </div>
+        </a>
+
+        <a href="https://www.myeoskit.com/#/tx/{{ acct_result.account_name }}">
+          <div class="link_col">
+            <p>MyEOSKit</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="acct_info3">
+    <!-- Tab links -->
+
+    <div class="acct_switch">
+
+      <button class="acct_tab" onclick="openTab('comment', this, '#686868')" id="defaultOpen">Comment</button>
+      <button class="acct_tab" onclick="openTab('rawdata', this, '#686868')">Raw Data</button>
+      {% if code_result == 0 %}
+      <button class="acct_tab" disabled>Contract</button>
+      {% else %}
+      <button class="acct_tab" onclick="openTab('contract', this, '#686868')">Contract</button>
+      {% endif %}
+    </div>
+
+
+    <div class="acct_switch_content">
+
+
+      <!-- Comments -->
+      <div id="comment" class="acct_tabcontent">
+
+        <div class="comment_title">
+
+          <div class="comment_title01">
+            {% if c_num == 0 %}
+
+            <h3>No comment yet</h3>
+          </div>
+          
+            {% else %}
+
+            <h3>{{ c_num }} comments</h3>
+          </div>
+              
+          <div class="comment_title02">
+            <button type="button" data-toggle="dropdown" style="background-image: url('{% static 'images/sort.png' %}');"></button>
+
+              <div class="dropdown-menu comment_dropdown">
+
+                <a href="/account/{{ acct_result.account_name }}?s=1">
+                  <div class="sortlink"><p>Newest</p></div>
+                </a>
+
+                <a href="/account/{{ acct_result.account_name }}?s=2">
+                  <div class="sortlink"><p>Best</p></div>
+                </a>
+
+                <a href="/account/{{ acct_result.account_name }}?s=3">
+                  <div class="sortlink"><p>Oldest</p></div>
+                </a>
+              </div>
+          </div>
+        
+            {% endif %}
+
+
+          <div class="comment_title03">
+
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Feostree.io%2Faccount%2F{{ acct_result.account_name }}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=600');return false;">
+              <div class="fb_btn" style="background-image: url('{% static 'images/facebook.png' %}');">
+              </div>
+            </a>
+
+            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Check%20out%20this%20EOS%20account&url=https://eostree.io{{ request.path }}&via=eostree_io" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=600');return false;" >
+              <div class="tw_btn" style="background-image: url('{% static 'images/twitter.png' %}');">
+              </div>
+            </a>
+
+          </div>
+
+        </div>
+
+
+
+        {% if request.user.is_authenticated %}
+
+        <br>
+        <div class="acct_post">
+          <form action="" method="post" class="ajax_comment">
+            <ul id="text_chg"></ul>
+            {% csrf_token %}
+            <textarea rows="3" cols="50" name="comment" id="comment_text" placeholder="Add a comment ..." required=""></textarea>
+            <br>
+            <button type="submit" id="comment_button">Submit</button>
+          </form>
+          <br>
+          <br>
+        </div>
+
+        {% else %}
+        <div class="acct_post_login">
+          <br>
+          <p>Please <a href="/signin">log in</a> or <a href="/signup">sign up</a> to leave a comment.</p>
+          <br>
+        </div>
+        {% endif %}
+
+
+
+
+        {% if c1_result != 0 %}
+        {% for c in c2 %}
+
+        <div class="acct_comment">
+
+          <div class="comment_info">
+            <div class="comment_info_desc">
+              <!-- <p>Posted by &nbsp; {{ c.user.username }} &nbsp; {{ c.date|naturaltime }}</p> -->
+              <p>{{ c.date|naturaltime }} &nbsp;by &nbsp;<span style="font-size:14px;">{{ c.user.username }}</span>&nbsp;&nbsp;&nbsp;</p>
+            </div>
+
+              {% if c.user.username == request.user.username%}
+            <div class="comment_info_del">
+              <span title="Delete"><img class="ajax_del" name="{{ c.id }}" src="{% static 'images/delete.png' %}"></span>
+            </div>
+              {% endif %}
+          </div>
+
+
+
+          <div class="comment_content">
+           <p>{{ c.content }}</p> 
+          </div>
+
+          <div class="comment_func">
+
+            <table class="comment_func_tb">
+              <tr>
+                
+                {% if request.user.is_authenticated %}
+
+                <!-- see if user liked this -->
+                  {% if c.id in user_like %}
+                <td>
+                    <img class ="ajax_like" name="{{ c.id }}" src='{% static 'images/like_e.png' %}'><span style="font-size:12px;margin-left:6px;">{% if c.up != 0 %}{{ c.up }}{% endif %} </span>
+                </td>
+
+                  {% else %}
+                <td>
+                    <img class ="ajax_like" name="{{ c.id }}" src='{% static 'images/like.png' %}'><span style="font-size:12px;margin-left:6px;">{% if c.up != 0 %}{{ c.up }}{% endif %}</span>
+                </td>
+                  {% endif %}
+
+
+                <!-- see if user disliked this -->
+                  {% if c.id in user_dislike %}
+                <td>
+                    <img class ="ajax_dislike" name="{{ c.id }}" src='{% static 'images/dislike_e.png' %}'><span style="font-size:12px;margin-left:6px;">{% if c.down != 0 %}{{ c.down }}{% endif %} </span>
+                </td>
+
+                  {% else %}
+                <td>
+                    <img class ="ajax_dislike" name="{{ c.id }}" src='{% static 'images/dislike.png' %}'><span style="font-size:12px;margin-left:6px;">{% if c.down != 0 %}{{ c.down }}{% endif %}</span>
+                </td>
+                  {% endif %}
+
+                <td>
+                    <img class ="reply" src="{% static 'images/comment6.png' %}">
+                </td>
+
+
+                {% else %}
+
+                <td>
+                  <a href="/signin"><img class ="ajax_like" src='{% static 'images/like.png' %}'></a><span style="font-size:12px;margin-left:6px;">{% if c.up != 0 %}{{ c.up }}{% endif %}</span>
+                </td>
+
+                <td>
+                  <a href="/signin"><img class ="ajax_dislike" src='{% static 'images/dislike.png' %}'></a><span style="font-size:12px;margin-left:6px;">{% if c.down != 0 %}{{ c.down }}{% endif %}</span>
+                </td>
+
+                <td>
+                  <a href="/signin"><img class ="no_reply" src="{% static 'images/comment6.png' %}"></a>
+                </td>
+
+                {% endif %}
+
+
+                {% if c.children.count == 1 %}
+                <td>
+                  <a href="" class="reply_toggle"><p>View {{ c.children.count }} reply</p></a>
+                </td>
+
+                {% elif c.children.count > 1 %}
+                <td>
+                  <a href="" class="reply_toggle"><p>View {{ c.children.count }} replies</p></a>
+                </td>
+                {% elif c.children.count == 0 %}
+
+                {% endif %}
+              </tr>
+            </table>
+          </div>
+        </div>
+
+
+        <li style="list-style: none; display: none;">
+          <div class="acct_reply_post">
+            <form action=""  method="post" class="ajax_reply">
+              <ul id="reply_err"></ul>
+              {% csrf_token %}
+              <textarea name="reply" id="reply_text" rows="3" placeholder="Add a reply ..." required=""></textarea><br>
+              <input type="hidden" name="post_id" value="{{ c.id }}">
+              <button type="submit" id="reply_button">Submit</button>
+            </form>
+          </div> 
+        </li>
+
+
+
+        <!-- Get reply -->
+        <div class="reply_div" id="reply_sec" style="display:none;">
+
+        {% for r in c.children%}
+
+          <div class="acct_reply">
+          
+            <div class="reply_info">
+
+              <div class="comment_info_desc">
+                <p><img src='{% static 'images/reply03.png' %}'>  Replied by&nbsp;<span style="color:#686868;font-size:14px;">{{ r.user.username }}</span>&nbsp;&nbsp;{{ r.date|naturaltime }}</p>
+              </div>
+
+
+              {% if r.user.username == request.user.username%}
+              <div class="comment_info_del">
+                <span title="Delete"><img class="ajax_del" name="{{ r.id }}" src="{% static 'images/delete.png' %}"></span>
+              </div>
+              {% endif %}
+                
+            </div>
+
+            <div class="reply_content">
+             <p>{{ r.content }}</p> 
+            </div>
+
+            <div class="reply_func">
+              <table class="reply_func_tb">
+                <tr>
+                  
+                  {% if request.user.is_authenticated %}
+
+                  <!-- see if user liked this -->
+                    {% if r.id in user_like %}
+                  <td>
+                      <a href=""><img class ="ajax_like" name="{{ r.id }}" src='{% static 'images/like_e.png' %}'></a><span style="font-size:12px;margin-left:6px;">{% if r.up != 0 %}{{ r.up }}{% endif %} </span>
+                  </td>
+
+                    {% else %}
+                  <td>
+                      <a href=""><img class ="ajax_like" name="{{ r.id }}" src='{% static 'images/like.png' %}'></a><span style="font-size:12px;margin-left:6px;">{% if r.up != 0 %}{{ r.up }}{% endif %}</span>
+                  </td>
+                    {% endif %}
+
+
+                  <!-- see if user disliked this -->
+                    {% if r.id in user_dislike %}
+                  <td>
+                      <a href=""><img class ="ajax_dislike" name="{{ r.id }}" src='{% static 'images/dislike_e.png' %}'></a><span style="font-size:12px;margin-left:6px;">{% if r.down != 0 %}{{ r.down }}{% endif %} </span>
+                  </td>
+
+                    {% else %}
+                  <td>
+                      <img class ="ajax_dislike" name="{{ r.id }}" src='{% static 'images/dislike.png' %}'><span style="font-size:12px;margin-left:6px;">{% if r.down != 0 %}{{ r.down }}{% endif %}</span>
+                  </td>
+                    {% endif %}
+
+                  <td>
+                    <img class ="reply" src="{% static 'images/comment6.png' %}">
+                  </td>
+
+                  {% else %}
+
+                  <td>
+                    <a href="/signin"><img src='{% static 'images/like.png' %}'></a><span style="font-size:12px;margin-left:6px;">{% if r.up != 0 %}{{ r.up }}{% endif %}</span>
+                  </td>
+
+                  <td>
+                    <a href="/signin"><img src='{% static 'images/dislike.png' %}'></a><span style="font-size:12px;margin-left:6px;">{% if r.down != 0 %}{{ r.down }}{% endif %}</span>
+                  </td>
+
+                  <td>
+                    <a href="/signin"><img class ="no_reply" src="{% static 'images/comment6.png' %}"></a>
+                  </td>
+
+
+                  {% endif %}
+
+
+                </tr>
+              </table>
+              
+            </div>
+          </div>
+        
+
+          <!-- Reply to a reply -->
+          <li style="list-style: none; display: none;">
+            <div class="acct_reply_post">
+              <form action=""  method="post" class="ajax_reply">
+                <ul id="reply_err"></ul>
+                {% csrf_token %}
+                <textarea name="reply" id="reply_text" rows="3" required="" autocomplete="off">@{{ r.user.username }} </textarea><br>
+                <input type="hidden" name="post_id" value="{{ c.id }}">
+                <button type="submit" id="reply_button">Submit</button>
+              </form>
+            </div> 
+          </li>
+
+
+
+
+        {% endfor %}
+        </div>
+
+
+
+
+        {% endfor %}
+
+        {% endif %}
+
+
+
+
+
+        <div class="acct_pg">
+          {% if c2.has_other_pages %}
+          <ul class="pagination">
+            {% if c2.has_previous %}
+              <li><a href="?page={{ c2.previous_page_number }}{% if comment_sort %}&s={{comment_sort}}{% endif %}">&laquo;</a></li>
+            {% else %}
+              <li class="disabled"><a class="page-link" href="#" tabindex="-1"><span>&laquo;</span></a></li>
+            {% endif %}
+
+
+            {% for i in pagesc2 %}
+              {% if i == -1 %}
+              <li class="disabled"><a class="page-link" href="#" tabindex="-1">&hellip;</a></li>
+              {% elif c2.number == i %}
+              <li class="page-item active"><a href="#">{{ i }}</a></li>
+              {% else %}
+              <li><a href="?page={{ i }}{% if comment_sort %}&s={{comment_sort}}{% endif %}">{{ i }}</a>
+              {% endif %}
+            {% endfor %}
+
+
+            {% if c2.has_next %}
+              <li><a href="?page={{ c2.next_page_number }}{% if comment_sort %}&s={{comment_sort}}{% endif %}">&raquo;</a></li>
+            {% else %}
+              <li class="disabled"><a class="page-link" href="#" tabindex="-1"><span>&raquo;</span></a></li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        </div>
+
+      </div>
+
+
+
+
+
+
+      <div id="rawdata" class="acct_tabcontent">
+        <h3>Raw Data</h3>
+        <br>
+        {% if acct_result %}
+
+        <div class="acct_raw">
+          <pre> {{ acct_result | pprint }} </pre>
+        </div>
+
+        {% endif %}
+      </div>
+
+
+      <div id="contract" class="acct_tabcontent">
+        <h3>Contract</h3>
+        <br>
+        {% if code_result != 0 %}
+        <div class="acct_code">
+          <pre>{{ code_result | pprint }}</pre>
+        </div>
+        {% endif %}
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+ 
+<script>
+function openTab(tabName, elmnt, color) {
+    var i, tabcontent, tablinks, activetab;
+    tabcontent = document.getElementsByClassName("acct_tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("acct_tab");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(tabName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+}
+
+document.getElementById("defaultOpen").click();
+
+
+
+$(document).ready(function() {
+
+  $('form.ajax_comment').on('submit', function(data){
+
+    $("#comment_button").html('Submitting...');
+    var that =$(this),
+    url = that.attr('action'),
+    type = that.attr('method'),
+    h454 = '/s7',
+    data = {};
+
+    that.find('[name]').each(function(index, value){
+      var that =$(this),
+      name = that.attr('name'),
+      value = that.val();
+      data[name] = value;
+      data['acct_name'] = '{{ acct_result.account_name }}';
+    });
+
+    
+    $.ajax({
+      url: h454,
+      type: type,
+      data: data,
+      dataType: "json",
+
+      success: function(data){
+
+        if(data.pass == '1'){
+          // $(".acct_post").html('<span>Thanks for your comment!</span>').css("text-align", "center");
+          // $("#comment_text").val("");
+          $('.ajax_comment')[0].reset();
+          window.location.reload();
+
+        }else if(data.empty == '1'){
+
+          $("#text_chg").html("Please say something : ) ");
+          $("#comment_text").val("");
+
+        }else{
+          $(".acct_post").html(data.error);
+          
+        }
+      }
+
+    });
+
+    return false;
+    
+  });
+
+});
+
+
+
+
+$(document).ready(function() {
+
+  $('.ajax_like').on('click', function(data){
+
+    var that =$(this),
+    the_post_id = that.attr('name'),
+    f454= '/s8',
+    data = {
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      post_id: the_post_id,
+      like: '1', 
+    };
+
+    $.ajax({
+      url: f454,
+      type: 'post',
+      data: data,
+      dataType: "json",
+
+      success: function(data){
+
+        if(data.pass == '1'){
+          // $("#text_chg").html(data.post_id, "yes").css("text-align", "center");
+
+          window.location.reload();
+
+        }else if(data.login == '0'){
+          window.location.replace("/signin/") 
+        }else{
+          $("#text_chg").html(data.error).css("text-align", "center");
+        }
+      }
+
+    });
+
+    return false;
+
+  });
+
+});
+
+
+
+
+$(document).ready(function() {
+
+  $('.ajax_dislike').on('click', function(data){
+
+    var that =$(this),
+    the_post_id = that.attr('name'),
+    d343= '/s8',
+    data = {
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      post_id: the_post_id,
+      like: '0', 
+    };
+
+    $.ajax({
+      url: d343,
+      type: 'post',
+      data: data,
+      dataType: "json",
+
+      success: function(data){
+
+        if(data.pass == '1'){
+          window.location.reload();
+          
+        }else if(data.login == '0'){
+          window.location.replace("/signin/") 
+        }else{
+          $("#text_chg").html(data.error).css("text-align", "center");
+        }
+      }
+
+    });
+
+    return false;
+
+  });
+
+});
+
+
+
+$(document).ready(function() {
+    $(".reply").click (function(e) {
+      e.preventDefault();
+      $(this).parents().next('li').toggle();
+    });
+});
+
+
+
+$(document).ready(function() {
+    $(".reply_toggle").click(function(e){
+      e.preventDefault();
+      $(this).parents().next().next('#reply_sec').toggle();
+    });
+});
+
+
+
+
+
+$(document).ready(function() {
+
+  $('form.ajax_reply').on('submit', function(data){
+
+    $('[id="reply_button"]').html('Submitting...');
+    var that =$(this),
+    s456 = '/s9',
+    type = that.attr('method'),
+    data = {};
+
+    that.find('[name]').each(function(index, value){
+      var that =$(this),
+      name = that.attr('name'),
+      value = that.val();
+      data[name] = value;
+      data['acct_name'] = '{{ acct_result.account_name }}';
+    });
+
+    $.ajax({
+      url: s456,
+      type: type,
+      data: data,
+      dataType: "json",
+
+      success: function(data){
+
+        if(data.pass == '1'){
+          $('.ajax_reply')[0].reset();
+          window.location.reload();
+
+        }else if(data.empty == '1'){
+
+          $("#reply_err").html("Please say something : ) ");
+          $("#reply_text").val("");
+          $("#reply_button").html('Submit');
+
+        }else if(data.login == '0'){
+          window.location.replace("/signin/") 
+        }else{
+          $("#reply_err").html(data.error);
+          
+        }
+      }
+
+    });
+
+    return false;
+
+  });
+
+});
+
+
+
+
+
+
+$(document).ready(function() {
+
+  $('.ajax_del').on('click', function(data){
+
+    var that =$(this),
+    the_post_id = that.attr('name'),
+    s232 = '/a1',
+    data = {
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      post_id: the_post_id,
+      acct_name: '{{ acct_result.account_name }}',
+    };
+
+    $.ajax({
+      url: s232,
+      type: 'post',
+      data: data,
+      dataType: "json",
+
+      success: function(data){
+
+        if(data.pass == '1'){
+          window.location.reload();
+          
+        }else if(data.login == '0'){
+          window.location.replace("/signin/") 
+        }else{
+          $("#text_chg").html(data.error).css("text-align", "center");
+        }
+      }
+
+    });
+
+    return false;
+
+  });
+
+});
+
+
+
+
+</script>
+
+
+
+
+
+{% endblock %}

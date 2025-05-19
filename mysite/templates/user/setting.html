@@ -1,0 +1,432 @@
+{% extends 'search/base.html' %}
+
+{% load static %}
+
+{% block content %}
+  
+
+{% if request.user.is_authenticated %}
+
+<div class="p0header">
+
+    <div class="p0logo">
+      <a href="{% url 'search' %}"><img src='{% static 'images/eostree_10.png' %}'></a>
+    </div>
+
+    <div class="p0bar">
+
+      <form action="/search" method="get" >
+        
+          <input type="text" name="q" placeholder="Account / Keyword" value="{{ keyword }}"><button class="p0btn1" type="submit"><img class ="btnimg" src='{% static 'images/search2.png' %}'></button>
+
+      </form>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<div class="p0result">
+
+  <div class="p0ds">
+
+    <div class="p0ds1">
+      <p> User account </p>
+    </div>
+
+  </div>
+
+<!--   <div class="acct_title">
+    <p>Hi, {{ user_name }}!</p>
+  </div> -->
+
+
+  <div class="acct_info3">
+    <!-- Tab links -->
+
+    <div class="acct_switch">
+
+      <button class="acct_tab" onclick="openTab('info', this, '#686868')" id="defaultOpen">Profile</button>
+      <button class="acct_tab" onclick="openTab('content', this, '#686868')">My content</button>
+
+    </div>
+
+
+    <div class="acct_switch_content">
+
+      <!-- Tab content -->
+      <div id="info" class="acct_tabcontent">
+        
+        <br>
+        <h3>Account info</h3>
+        <br>
+        <table>
+          <tr>
+            <th>Username: </th> 
+            <td>{{ user_name }}</td>
+          </tr>
+
+          <tr>
+            <th>Email: </th>
+            <td>{{ userr.email }}</td>
+          </tr>
+
+          <tr>
+            <th>Registered at: </th>
+            <td>{{ userr.date_joined | date:"n/d/Y G:i T" }}</td>
+          </tr>
+
+          <tr>
+            <th>Active posts:</th>
+            <td>{{ c1_num }}</td>
+          </tr>
+
+          <tr>
+            <th>Last login: </th>
+            <td>{{ last_login | date:"n/d/Y G:i T" }}</td>
+          </tr>
+
+        </table>
+
+        <br>
+        <br>
+        <br>
+
+        <h3>Account settings</h3>
+        <br>
+        <div class="acct_setting">
+
+          <p>Update Email Address</p>
+
+          <div class="acct_setting01">
+            <form action="/ajax/change_email" method="post" class="ajax_email">
+              {% csrf_token %}
+              <div class="acct_form">
+                <ul id="email_chg"></ul>
+                <input type="email" name="new_email" value="{{ userr.email }}" required>
+              
+                <button type="submit" id="email_button">Update</button>
+              </div>
+            </form>
+          </div>
+
+          <br>
+          <br>
+
+
+          <p>Change password</p>
+
+          <div class="acct_setting02">
+            <form action="/ajax/change_password" method="post" class="ajax_password">
+              {% csrf_token %}
+              <div class="acct_form">
+                <ul id="pass_chg"></ul>
+                <p>Current password</p>
+                <input type="password" name="current_password" placeholder="" required>
+              </div>
+
+              <div class="acct_form">
+                <p>New password</p>
+                <input type="password" name="password1" placeholder="" required>
+              </div>
+
+              <div class="acct_form">
+                <p>Confirm new password</p>
+                <input type="password" name="password2" placeholder="" required>
+                <button type="submit" id="pass_button">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+      </div>
+
+
+
+
+      <div id="content" class="acct_tabcontent">
+        <br>
+
+        <div class="acct_content">
+
+          <h3>Activities</h3>
+          <br>
+
+        {% if c1_result == 0 %}
+          <p>You haven't made any comment yet</p>
+          <br>
+          <br>
+        {% else %}
+
+          <div class="acct_setting_c">
+            <table class="acct_setting_ct">
+              <tr>
+                <th>Date:</th>
+                <th>Account:</th>
+                <th>Type:</th>
+                <th>Content:</th>
+              </tr>
+
+              {% for c in c2 %}
+              <tr>
+                <!-- date -->
+                <td>{{ c.date | date:"n/d/Y G:i T"}}</td>
+                <!-- Acct -->
+                {% if c.acct %}
+                <td><a href="/account/{{ c.acct }}">{{ c.acct }}</a></td>
+                {% else %}
+                <td><a href="/account/{{ c.comment.acct }}">{{ c.comment.acct }}</a></td>
+                {% endif %}
+
+                <!-- type -->
+                {% if c.post == True %}
+                <td>C</td>
+                {% elif c.post == False %}
+                <td>R</td>
+                {% elif c.like == '1' %}
+                <td>L</td>
+                {% elif c.like == '0' %}
+                <td>D</td>
+                {% elif c.like == '2' %}
+                <td>X</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+
+                {% if c.like == '1' %}
+                <td>Like</td>
+                {% elif c.like == '0' %}
+                <td>Dislike</td>
+                {% else %}
+                <td>{{ c.content|truncatechars:50 }}</td>
+                {% endif %}
+
+              </tr>
+              {% endfor %}
+            </table>
+
+
+            <div class="acct_setting_pg">
+            {% if c2.has_other_pages %}
+              <ul class="pagination">
+                {% if c2.has_previous %}
+                  <li><a href="?page={{ c2.previous_page_number }}{% if keyword %}&q={{keyword}}{% endif %}{% if s_range %}&sr={{s_range}}{% endif %}{% if sort1 %}&s={{sort1}}{% endif %}{% if mode1 %}&m={{mode1}}{% endif %}{% if group_num != 0 %}{% for key, values in group_p.items %}&{{key}}={{values}}{% endfor %}{% endif %}">&laquo;</a></li>
+                {% else %}
+                  <li class="disabled"><a class="page-link" href="#" tabindex="-1"><span>&laquo;</span></a></li>
+                {% endif %}
+
+
+                {% for i in pagesc2 %}
+                  {% if i == -1 %}
+                  <li class="disabled"><a class="page-link" href="#" tabindex="-1">&hellip;</a></li>
+                  {% elif c2.number == i %}
+                  <li class="page-item active"><a href="#">{{ i }}</a></li>
+                  {% else %}
+                  <li><a href="?page={{ i }}{% if keyword %}&q={{keyword}}{% endif %}{% if s_range %}&sr={{s_range}}{% endif %}{% if sort1 %}&s={{sort1}}{% endif %}{% if mode1 %}&m={{mode1}}{% endif %}{% if group_num != 0 %}{% for key, values in group_p.items %}&{{key}}={{values}}{% endfor %}{% endif %}">{{ i }}</a>
+                  {% endif %}
+                {% endfor %}
+
+
+                {% if c2.has_next %}
+                  <li><a href="?page={{ c2.next_page_number }}{% if keyword %}&q={{keyword}}{% endif %}{% if s_range %}&sr={{s_range}}{% endif %}{% if sort1 %}&s={{sort1}}{% endif %}{% if mode1 %}&m={{mode1}}{% endif %}{% if group_num != 0 %}{% for key, values in group_p.items %}&{{key}}={{values}}{% endfor %}{% endif %}">&raquo;</a></li>
+                {% else %}
+                  <li class="disabled"><a class="page-link" href="#" tabindex="-1"><span>&raquo;</span></a></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+            </div>
+
+
+          </div>
+
+
+
+
+
+          
+        {% endif %}
+
+
+
+
+
+<!-- 
+          <h3>Replies</h3>
+          <br>
+          <p>You don't have any content yet</p>
+          <br>
+          <br>
+
+          <h3>Likes</h3>
+          <br>
+          <p>You don't have any content yet</p>
+          <br>
+          <br> -->
+
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+{% endif %}
+
+
+
+
+<script>
+function openTab(tabName, elmnt, color) {
+    var i, tabcontent, tablinks, activetab;
+    tabcontent = document.getElementsByClassName("acct_tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("acct_tab");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(tabName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+}
+
+document.getElementById("defaultOpen").click();
+</script>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+<script>
+
+
+
+//change_email
+
+$(document).ready(function() {
+
+  $('form.ajax_email').on('submit', function(data){
+
+    $("#email_button").html('Updating...');
+    var that =$(this),
+    url = that.attr('action'),
+    type = that.attr('method'),
+    data = {};
+    
+    that.find('[name]').each(function(index, value){
+      var that =$(this),
+      name = that.attr('name'),
+      value = that.val();
+      data[name] = value;
+    });
+
+    $.ajax({
+      url: url,
+      type: type,
+      data: data,
+      dataType: "json",
+
+      success: function(response){
+
+        if(response.chg == '1'){
+          $(".acct_setting01").html('<div class="acct_setting01u"><p>A validation email has been sent, please check your email.</p></div>');
+          
+        }else if(response.login == '0'){
+
+          window.location.replace("/login/") 
+
+        }else{
+          $("#email_chg").html(response.error);
+          $("#email_button").html('Update');
+        }
+      }
+
+    });
+
+    return false;
+
+  });
+
+});
+
+
+
+
+//change password
+
+$(document).ready(function() {
+
+  $('form.ajax_password').on('submit', function(data){
+
+    $("#pass_button").html('Updating...');
+    var that =$(this),
+    url = that.attr('action'),
+    type = that.attr('method'),
+    data = {};
+    
+    that.find('[name]').each(function(index, value){
+      var that =$(this),
+      name = that.attr('name'),
+      value = that.val();
+      data[name] = value;
+    });
+
+    $.ajax({
+      url: url,
+      type: type,
+      data: data,
+      dataType: "json",
+
+      success: function(response){
+
+        if(response.chg == '1'){
+          $(".acct_setting02").html('Your password has been updated.').addClass("p11suc");
+          $("#pass_button").html('Update');
+          
+        }else if(response.login == '0'){
+
+          window.location.replace("/login/") 
+
+        }else{
+
+          var list_html = "";
+          for( var i=0; i <response.error.length; i++) {
+             list_html += "<li>" + response.error[i] + "</li>";
+           }
+          // list_html += "</li>"
+
+          $("#pass_chg").html(list_html);
+                
+          // $("#pass_chg").html(response.error);
+          
+          $("#pass_button").html('Update');
+        }
+      }
+
+    });
+
+    return false;
+
+  });
+
+});
+
+</script>
+
+
+{% endblock %}

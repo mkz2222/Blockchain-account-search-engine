@@ -1,0 +1,16 @@
+{% autoescape off %}
+Hi {{ user }},
+
+A request has been made to change your email address to {{ new_email.0 }}, please click the link below to complete the change (Some email client users may need to copy and paste the link into your web browser).
+
+http://{{ domain }}{% url 'update_email' uidb64=uid token=token %}
+
+If you did not make this change, you should change the password or contact us immediately. 
+
+Thanks,
+
+EOS Tree
+info@eostree.io
+eostree.io
+
+{% endautoescape %}

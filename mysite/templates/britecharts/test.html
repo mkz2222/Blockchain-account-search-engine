@@ -1,0 +1,62 @@
+<!-- 
+<script src="https://cdn.jsdelivr.net/npm/britecharts@2/dist/bundled/britecharts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/britecharts/dist/css/britecharts.min.css">
+<script>
+
+
+var data = [
+{% for key in key_vol %}
+    {% if not forloop.first %},{% endif %}
+    {
+        name: "{{ key.name }}",
+        value: "{{ key.value }}",
+
+    }
+{% endfor %}
+]
+
+
+
+let barChart = new britecharts.bar(),
+    margin = {
+
+            left: 120,
+            right: 20,
+            top: 20,
+            bottom: 30
+
+    },
+    barContainer = d3.select('.p01ar3_2'),
+    containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
+
+barChart
+   .isHorizontal(true)
+   .margin(margin)
+   .width(containerWidth)
+   .colorSchema(britecharts.colors.colorSchemas.red)
+   .valueLabel('value')
+   .xTicks(0)
+   .height(360);
+
+barContainer.datum(data).call(barChart);
+
+
+const redrawCharts = () => {
+    let barContainer = d3.select('.p01ar3_2');
+    let newContainerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
+     
+    // Setting the new width on the chart
+    barChart.width(newContainerWidth);
+ 
+    // Rendering the chart again
+    barContainer.datum(data).call(barChart);
+};
+
+const throttledRedraw =  _.throttle(redrawCharts, 200);  
+ 
+window.addEventListener('resize', throttledRedraw);
+
+
+
+</script> -->
